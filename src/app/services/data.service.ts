@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 export interface Message {
   fromName: string;
@@ -71,10 +71,16 @@ export class DataService {
     }
   ];
 
-  constructor() { }
+  constructor() {
+  }
 
   public getMessages(): Message[] {
-    return this.messages;
+    let list: Message[] = [];
+    for (let i = 0; i < 8; i++) {
+      list = list.concat(this.messages);
+    }
+
+    return list;
   }
 
   public getMessageById(id: number): Message {

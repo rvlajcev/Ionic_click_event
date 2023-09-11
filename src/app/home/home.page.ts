@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { IonicModule, RefresherCustomEvent } from '@ionic/angular';
-import { MessageComponent } from '../message/message.component';
+import {CommonModule} from '@angular/common';
+import {Component, inject, ViewChild} from '@angular/core';
+import {IonContent, IonicModule, RefresherCustomEvent} from '@ionic/angular';
+import {MessageComponent} from '../message/message.component';
 
-import { DataService, Message } from '../services/data.service';
+import {DataService, Message} from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -13,16 +13,18 @@ import { DataService, Message } from '../services/data.service';
   imports: [IonicModule, CommonModule, MessageComponent],
 })
 export class HomePage {
+  @ViewChild(IonContent, {static: true}) content?: IonContent;
   private data = inject(DataService);
-  constructor() {}
-
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
-  }
 
   getMessages(): Message[] {
     return this.data.getMessages();
+  }
+
+  onClick() {
+    console.log("Clicked at:", Date.now())
+  }
+
+  scrollMe() {
+    this.content?.scrollToTop(3000);
   }
 }
